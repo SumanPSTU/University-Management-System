@@ -129,7 +129,7 @@ public class StudentSignInData extends JFrame {
         String password = studentPassword.getText();
         Integer x = Integer.parseInt(id);
         if (!id.isEmpty() && !email.isEmpty() && !password.isEmpty()){
-            if (isInt(x)){
+            if (isInt(id)){
                 // passing data to  login class
                 StudentSignIn studentSignIn = new StudentSignIn(x,email,password);
                 if (studentSignIn.checkValidation()){
@@ -146,8 +146,8 @@ public class StudentSignInData extends JFrame {
             JOptionPane.showMessageDialog(null,"Please fill all field","Warning",JOptionPane.WARNING_MESSAGE);
         }
     }
-    private static boolean isInt(Integer id){
-        return (id instanceof Integer)?true:false;
+    public boolean isInt(String input) {
+        return input.matches("[0-9]+");
     }
     public static void main(String[] args) {
         new StudentSignInData();

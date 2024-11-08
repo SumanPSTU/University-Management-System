@@ -326,7 +326,6 @@ public class StudentSignUpFrame extends JFrame {
         String facultyInfo = faculty.getText();
         String source = (sourcePath == null)? "" : sourcePath.toString();
         int x = Integer.parseInt(studentId);
-        int y = Integer.parseInt(studentRegi);
         if (!student.isEmpty() && !studentId.isEmpty() && !fName.isEmpty() && !mName.isEmpty() && !mobNo.isEmpty()
                 && !emailAdd.isEmpty() && !passworD.isEmpty() && !gender.isEmpty() && !perAdd.isEmpty()
                 && !preAdd.isEmpty() && !dob.isEmpty() && !facultyInfo.isEmpty()
@@ -337,8 +336,8 @@ public class StudentSignUpFrame extends JFrame {
                         if (!ifIdExists(x)) {
                             if (!ifEmailExists(emailAdd)){
                                 if (!ifRegiExists(Integer.parseInt(studentRegi))){
-                                    if (isInt(y)){
-                                        if (isInt(x)){
+                                    if (isInt(studentRegi)){
+                                        if (isInt(studentId)){
                                             int option = JOptionPane.showConfirmDialog(null, "Are you sure?");
                                             if (option == JOptionPane.YES_OPTION) {
                                                 int id = Integer.parseInt(studentId);
@@ -449,9 +448,10 @@ public class StudentSignUpFrame extends JFrame {
         }
         return false;
     }
-    private static boolean isInt(Integer id){
-        return (id instanceof Integer)?true:false;
+    public boolean isInt(String input) {
+        return input.matches("[0-9]+");
     }
+
 
     public static void main(String[] args){
         new StudentSignUpFrame();
