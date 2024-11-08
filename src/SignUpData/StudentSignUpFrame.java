@@ -311,7 +311,7 @@ public class StudentSignUpFrame extends JFrame {
         String mName = mothersName.getText();
         String mobNo = mobileNo.getText();
         String emailAdd = email.getText();
-        String passworD = password.getText();
+        String passworD = new String(password.getPassword());
         String gender;
         if (male.isSelected()) {
             gender = male.getText();
@@ -320,62 +320,99 @@ public class StudentSignUpFrame extends JFrame {
         } else {
             gender = "";
         }
+        String com = comboBox.getSelectedItem().toString();
         String perAdd = permanentAdd.getText();
         String preAdd = presentAdd.getText();
         String dob = ((JTextField) dateOfBirth.getDateEditor().getUiComponent()).getText();
         String facultyInfo = faculty.getText();
-        String source = (sourcePath == null)? "" : sourcePath.toString();
-        int x = Integer.parseInt(studentId);
+        String source = (sourcePath == null) ? "" : sourcePath.toString();
+
+        // Check if fields are not empty
         if (!student.isEmpty() && !studentId.isEmpty() && !fName.isEmpty() && !mName.isEmpty() && !mobNo.isEmpty()
                 && !emailAdd.isEmpty() && !passworD.isEmpty() && !gender.isEmpty() && !perAdd.isEmpty()
-                && !preAdd.isEmpty() && !dob.isEmpty() && !facultyInfo.isEmpty()
-        ) {
+                && !preAdd.isEmpty() && !dob.isEmpty() && !facultyInfo.isEmpty() && !com.isEmpty()) {
+
+            // Validate if email is valid
             if (new ConnectionData().isValidEmail(emailAdd)) {
+
+                // Validate password length
                 if (passworD.length() >= 6) {
-                    if (!source.isEmpty()){
-                        if (!ifIdExists(x)) {
-                            if (!ifEmailExists(emailAdd)){
-                                if (!ifRegiExists(Integer.parseInt(studentRegi))){
-                                    if (isInt(studentRegi)){
-                                        if (isInt(studentId)){
-                                            int option = JOptionPane.showConfirmDialog(null, "Are you sure?");
-                                            if (option == JOptionPane.YES_OPTION) {
-                                                int id = Integer.parseInt(studentId);
-                                                int reg = Integer.parseInt(studentRegi);
-                                                new StudentSignUp(id, reg, student, fName, mName, mobNo, emailAdd, passworD, gender, perAdd, preAdd, dob, facultyInfo,selectedFile.getName());
-                                                JOptionPane.showMessageDialog(null, "Student Successfully Added");
-                                                complete();
+
+                    // Validate mobile number
+                    if (isValidMobile(mobNo)) {
+
+                        // Validate image selection
+                        if (!source.isEmpty()) {
+
+                            // Check if student ID is an integer
+                            if (isInt(studentId)) {
+                                int id = Integer.parseInt(studentId);
+
+                                // Check if student registration number is an integer
+                                if (isInt(studentRegi)) {
+                                    int reg = Integer.parseInt(studentRegi);
+
+                                    // Check if ID already exists
+                                    if (!ifIdExists(id)) {
+
+                                        // Check if email already exists
+                                        if (!ifEmailExists(emailAdd)) {
+
+                                            // Check if registration number already exists
+                                            if (!ifRegiExists(reg)) {
+
+                                                // Confirm with the user
+                                                int option = JOptionPane.showConfirmDialog(null, "Are you sure?");
+                                                if (option == JOptionPane.YES_OPTION) {
+                                                    new StudentSignUp(id, reg, student, fName, mName, mobNo, emailAdd, passworD, gender, perAdd, preAdd, dob, facultyInfo, selectedFile.getName(),com);
+                                                    JOptionPane.showMessageDialog(null, "Student Successfully Added");
+                                                    complete();
+                                                }
+
+                                            } else {
+                                                JOptionPane.showMessageDialog(null, "Registration no already exists", "Error", JOptionPane.ERROR_MESSAGE);
                                             }
-                                        }else {
-                                            JOptionPane.showMessageDialog(null,"Student ID must be Integer");
+
+                                        } else {
+                                            JOptionPane.showMessageDialog(null, "Email address already exists!", "Error", JOptionPane.ERROR_MESSAGE);
                                         }
-                                    }else {
-                                        JOptionPane.showMessageDialog(null,"Student Regi number must be Integer");
+
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "Student ID already exists!", "Error", JOptionPane.ERROR_MESSAGE);
                                     }
-                                }else {
-                                    JOptionPane.showMessageDialog(null,"Registration no  already exists");
+
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Student Registration number must be an integer.", "Error", JOptionPane.ERROR_MESSAGE);
                                 }
-                            }else {
-                                JOptionPane.showMessageDialog(null, "Email address already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Student ID must be an integer.", "Error", JOptionPane.ERROR_MESSAGE);
                             }
 
-                        }else {
-                            JOptionPane.showMessageDialog(null, "Student ID already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Please select an image.", "Warning", JOptionPane.WARNING_MESSAGE);
                         }
 
-                    }else {
-                        JOptionPane.showMessageDialog(null,"select an Image","warnning!",JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Please enter a valid mobile number (10 digits).", "Error", JOptionPane.ERROR_MESSAGE);
                     }
+
                 } else {
-                    JOptionPane.showMessageDialog(null, "Password should be 6 characters!", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Password should be at least 6 characters.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
+
             } else {
-                JOptionPane.showMessageDialog(null, "Please enter a valid email address!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Please enter a valid email address.", "Error", JOptionPane.ERROR_MESSAGE);
             }
+
         } else {
-            JOptionPane.showMessageDialog(null, "Please fill all the field!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please fill all the fields.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    public boolean isValidMobile(String mobile) {
+        return mobile.matches("^01\\d{9}$");
+    }
+
     public void complete(){
         studentID.setText("");
         studentReg.setText("");
