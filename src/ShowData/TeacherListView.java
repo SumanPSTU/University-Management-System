@@ -15,6 +15,7 @@ import java.util.Vector;
 
 public class TeacherListView extends JFrame {
 
+
     JPanel rightPanel = new JPanel();
     JPanel leftPanel = new JPanel();
 
@@ -24,7 +25,7 @@ public class TeacherListView extends JFrame {
     public TeacherListView() {
         setTitle("Teacher List");
         setSize(1200, 730);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon("icon/main_logo.png").getImage());
         setLayout(null);
@@ -39,13 +40,13 @@ public class TeacherListView extends JFrame {
 
         // Left panel
         leftPanel.setLayout(null);
-        leftPanel.setBounds(0, 0, 350, 730);
-        leftPanel.setBackground(new Color(224, 236, 136));
+        leftPanel.setBounds(0, 0, 250, 730);
+        leftPanel.setBackground(new Color(172, 232, 204));
         add(leftPanel);
 
         // Right panel
         rightPanel.setLayout(null);
-        rightPanel.setBounds(350, 0, 850, 730);
+        rightPanel.setBounds(250, 0, 950, 730);
         rightPanel.setBackground(new Color(170, 205, 203));
         add(rightPanel);
 
@@ -54,7 +55,7 @@ public class TeacherListView extends JFrame {
 
         // Create a scroll pane to hold the JTable
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(0, 100, 850, 630);
+        scrollPane.setBounds(0, 100, 950, 630);
         rightPanel.add(scrollPane);
 
         // Set up the initial empty JTable
@@ -70,7 +71,6 @@ public class TeacherListView extends JFrame {
     private void retrieveDataFromDatabase() {
         // Column names
         String[] columns = {"ID", "Name", "Faculty", "Department", "Email", "Phone No", "More Info"};
-
         try {
             // Assuming ConnectionData is a utility class that manages the DB connection
             ConnectionData connection = new ConnectionData();
@@ -101,6 +101,7 @@ public class TeacherListView extends JFrame {
 
             // Ensure the table is properly refreshed to show the text
             table.revalidate();
+            table.setFont(new Font("Arial", Font.PLAIN, 17));
             table.repaint();
 
             // Set the column to have a specific width for "More Info"

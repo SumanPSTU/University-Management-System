@@ -28,7 +28,9 @@ public class TeacherSignIn {
             preparedStatement.setString(2,connection.hashPassword(password));
 
             ResultSet resultSet = preparedStatement.executeQuery();
+
             if (resultSet.next()){
+                connection.close();
                 return true;
             }
 
