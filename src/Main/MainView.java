@@ -2,6 +2,7 @@ package Main;
 
 import ShowData.TeacherListView;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,11 +10,14 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 
 
 public class MainView extends JFrame implements ActionListener {
     JPanel rightPanel;
     JPanel leftPanel;
+    JPanel topPanel;
+    CardLayout cardLayout;
 
     public MainView() {
         setTitle("Patuakhali Science and Technology University");
@@ -25,6 +29,12 @@ public class MainView extends JFrame implements ActionListener {
 
         // Use BorderLayout for the frame
         setLayout(new BorderLayout());
+
+        topPanel = new JPanel();
+        topPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        topPanel.setBackground(Color.WHITE);
+        topPanel.setPreferredSize(new Dimension(1350, 50));
+        add(topPanel, BorderLayout.NORTH);
 
         // Create right panel
         rightPanel = new JPanel();
@@ -73,12 +83,31 @@ public class MainView extends JFrame implements ActionListener {
         logout.addActionListener(this);
         leftPanel.add(logout);
 
-
-
-
-
         // Add vertical glue after the buttons to center them
         leftPanel.add(Box.createVerticalGlue());
+
+        //add everything in right panel
+        cardLayout = new CardLayout();
+        rightPanel.setLayout(cardLayout);
+        JPanel imagePanel = new JPanel();
+
+        try {
+            URL imageUrl = new URL("https://www.pstu.ac.bd/storage/images/faculties/1691302432_fsh.jpg");
+            Image image = ImageIO.read(imageUrl).getScaledInstance(1350, 750, Image.SCALE_SMOOTH);
+            ImageIcon imageIcon = new ImageIcon(image);
+            imagePanel.add(new JLabel(imageIcon));
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error loading image: " + e.getMessage());
+        }
+
+        // Add the image panel to the right panel with a unique identifier
+        rightPanel.add(imagePanel, "ImagePanel");
+        JPanel panel2 = new JPanel();
+        panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
+        panel2.setBackground(new Color(84, 94, 200));
+        rightPanel.add(panel2,"Blue");
+
 
         setVisible(true);
     }
@@ -102,7 +131,11 @@ public class MainView extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         // action for home button
         if (e.getActionCommand().equals("Home")) {
-            new MainView();
+            cardLayout.show(rightPanel, "Blue");
+        }
+
+        else if (e.getActionCommand().equals("Dash Board")) {
+            cardLayout.show(rightPanel, "green");
         }
 
         //action for logout button
@@ -138,6 +171,15 @@ public class MainView extends JFrame implements ActionListener {
         // action for teacher info
         else if (e.getActionCommand().equals("Teacher info")) {
             new TeacherListView();
+        }
+        else  if (e.getActionCommand().equals("Search")){
+            try {
+                Desktop.getDesktop().browse(new URI("https://www.pstu.ac.bd/search"));
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (URISyntaxException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 }
