@@ -2,7 +2,7 @@ package Main;
 
 import com.connection.ConnectionData;
 import com.recover.admin.RecoverAdmin;
-import com.recover.admin.RecoverPass;
+import com.recover.admin.RecoverAdminPass;
 import com.signin.AdminSignIn;
 
 import javax.swing.*;
@@ -129,8 +129,8 @@ public class Main extends JFrame implements ActionListener {
                 String email = emailRec.getText();
                 if(!email.isEmpty()) {
                     if(new ConnectionData().isValidEmail(email)) {
-                        if (new RecoverPass(email).recover()) {
-                            new RecoverAdmin(email,new RecoverPass().generateCaptcha());
+                        if (new RecoverAdminPass(email).recover()) {
+                            new RecoverAdmin(email,new RecoverAdminPass().generateCaptcha());
                             dialog.dispose();
                         }else {
                             JOptionPane.showMessageDialog(null,"Email does not exist");

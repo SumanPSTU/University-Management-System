@@ -1,7 +1,7 @@
 package com.recover.librarian;
 
 import Main.Main;
-import com.recover.admin.SetRecoverPass;
+import com.recover.admin.SetRecoverAdminPass;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -121,7 +121,7 @@ public class RecoverLibrarian extends JFrame implements ActionListener {
                     if (password.length()>=6 && confirmPassword.length()>=6) {
                         if (password.equals(confirmPassword)) {
                             if (checkCaptcha(captcha)) {
-                                SetRecoverPass pass = new SetRecoverPass(password,email);
+                                SetRecoverAdminPass pass = new SetRecoverAdminPass(password,email);
                                 if (pass.successfulUpdate()){
                                     JOptionPane.showMessageDialog(null,"Password recover successful");
                                     new Main();

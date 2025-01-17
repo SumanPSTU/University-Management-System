@@ -120,7 +120,7 @@ public class RecoverAdmin extends JFrame implements ActionListener {
                     if (password.length()>=6 && confirmPassword.length()>=6) {
                         if (password.equals(confirmPassword)) {
                             if (checkCaptcha(captcha)) {
-                                SetRecoverPass pass = new SetRecoverPass(password,email);
+                                SetRecoverAdminPass pass = new SetRecoverAdminPass(password,email);
                                 if (pass.successfulUpdate()){
                                     JOptionPane.showMessageDialog(null,"Password recover successful");
                                     new Main();

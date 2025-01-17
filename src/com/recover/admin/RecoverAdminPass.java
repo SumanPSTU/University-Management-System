@@ -7,17 +7,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class RecoverPass {
+public class RecoverAdminPass {
     private String email;
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final int PASSWORD_LENGTH = 6;
     private static final SecureRandom random = new SecureRandom();
 
 
-    public RecoverPass(String email) {
+    public RecoverAdminPass(String email) {
         this.email = email;
     }
-    public RecoverPass() {
+    public RecoverAdminPass() {
 
     }
     private boolean checkEmail(String email) {
