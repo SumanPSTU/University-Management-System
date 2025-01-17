@@ -226,7 +226,7 @@ public class TeacherSignUpFrame extends JFrame {
                         ImageLable.setIcon(new ImageIcon(image2));
 
                     } catch (IOException ex) {
-                        System.out.println("File not found" + ex.getMessage());
+                       JOptionPane.showMessageDialog(null,"File not found");
                     }
                 }
             }
@@ -277,23 +277,40 @@ public class TeacherSignUpFrame extends JFrame {
         } else {
             gender = "";
         }
-        int x = Integer.parseInt(teacherId);
+
         String selectFile = (imagePath == null)?"":selectedFile.getName().toString();
+
+        // check all input are valid
+
         if (!teacherId.isEmpty() && !teacherName.isEmpty() && !mobile.isEmpty() && !emailAdd.isEmpty() && !pass.isEmpty() && !gender.isEmpty()
         && !permAdd.isEmpty() && !presAdd.isEmpty() && !dob.isEmpty() && !facultyInfo.isEmpty() && !departmentInfo.isEmpty()
         ) {
             if (new ConnectionData().isValidEmail(emailAdd)) {
                 if (pass.length() >= 6) {
                     if (!selectFile.isEmpty()){
-                        if (!ifIdExists(x)){
-                            if (!ifEmailExists(emailAdd)){
+                        if (ifInt(teacherId)) {
+                            if (!ifIdExists(Integer.parseInt(teacherId))) {
+                                if (!ifEmailExists(emailAdd)){
+                                    if (isValidMobile(mobile)){
 
+                                        //pass all data to the  teacher sign up class
+
+                                        new TeacherSignUp(Integer.parseInt(teacherId),teacherName,mobile,emailAdd,pass,gender,permAdd,presAdd,dob,facultyInfo,departmentInfo,selectFile);
+                                        JOptionPane.showMessageDialog(null,"Successfully Insert Data");
+
+                                    }else {
+                                        JOptionPane.showMessageDialog(null,"Input valid Mobile Number");
+                                    }
+                                }else {
+                                    JOptionPane.showMessageDialog(null,"Email Already Exists");
+                                }
                             }else {
-                                JOptionPane.showMessageDialog(null,"Email Already Exists");
+                                JOptionPane.showMessageDialog(null,"Teacher ID already Exist!","Error",JOptionPane.ERROR_MESSAGE);
                             }
                         }else {
-                            JOptionPane.showMessageDialog(null,"Teacher ID already Exist!","Error",JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null,"ID must be Integer!","Error",JOptionPane.ERROR_MESSAGE);
                         }
+
                     }else {
                         JOptionPane.showMessageDialog(null,"select an Image","Warning!",JOptionPane.WARNING_MESSAGE);
                     }
@@ -309,7 +326,7 @@ public class TeacherSignUpFrame extends JFrame {
     }
 
 
-
+    // create method for lable
     public JLabel createLabel(String text, int yPosition) {
         JLabel label = new JLabel(text);
         label.setForeground(Color.lightGray);
@@ -321,7 +338,7 @@ public class TeacherSignUpFrame extends JFrame {
     private boolean ifIdExists(int id){
         ConnectionData connection = new ConnectionData();
         try {
-            String query = "select * from university.teacher_info where id = ?";
+            String query = "select * from university.teacher_info where teacher_id = ?";
             PreparedStatement statement = connection.con.prepareStatement(query);
             statement.setInt(1,id);
             ResultSet set = statement.executeQuery();
@@ -334,6 +351,9 @@ public class TeacherSignUpFrame extends JFrame {
         return false;
     }
 
+    private boolean ifInt(String id){
+        return id.matches("[0-9]+");
+    }
     //check email is exist or not
     private boolean ifEmailExists(String email){
         ConnectionData connection = new ConnectionData();
@@ -349,6 +369,9 @@ public class TeacherSignUpFrame extends JFrame {
             e.printStackTrace();
         }
         return false;
+    }
+    public boolean isValidMobile(String mobile) {
+        return mobile.matches("^01\\d{9}$");
     }
 
 

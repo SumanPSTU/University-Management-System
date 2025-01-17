@@ -90,73 +90,73 @@ public class StudentDataShow extends JFrame {
         Font font = new Font("Arial",Font.PLAIN,17);
 
 
-        id = new JLabel("2202014");
+        id = new JLabel("");
         id.setBounds(xpos,ypos,width,height);
         id.setFont(font);
         add(id);
         ypos+=40;
 
-        regi = new JLabel("11205");
+        regi = new JLabel("");
         regi.setBounds(xpos,ypos,width,height);
         regi.setFont(font);
         add(regi);
         ypos+=40;
 
-        name = new JLabel("Suman Das");
+        name = new JLabel("");
         name.setBounds(xpos,ypos,width,height);
         name.setFont(font);
         add(name);
         ypos+=40;
 
-        fName = new JLabel("2202014");
+        fName = new JLabel("");
         fName.setBounds(xpos,ypos,width,height);
         fName.setFont(font);
         add(fName);
         ypos+=40;
 
-        mName = new JLabel("2202014");
+        mName = new JLabel("");
         mName.setBounds(xpos,ypos,width,height);
         mName.setFont(font);
         add(mName);
         ypos+=40;
 
-        add = new JLabel("2202014");
+        add = new JLabel("");
         add.setBounds(xpos,ypos,width,height);
         add.setFont(font);
         add(add);
         ypos+=40;
 
-        dob = new JLabel("2202014");
+        dob = new JLabel("");
         dob.setBounds(xpos,ypos,width,height);
         dob.setFont(font);
         add(dob);
         ypos+=40;
 
-        gender = new JLabel("2202014");
+        gender = new JLabel("");
         gender.setBounds(xpos,ypos,width,height);
         gender.setFont(font);
         add(gender);
         ypos+=40;
 
-        mob = new JLabel("2202014");
+        mob = new JLabel("");
         mob.setBounds(xpos,ypos,width,height);
         mob.setFont(font);
         add(mob);
         ypos+=40;
 
-        email = new JLabel("2202014");
+        email = new JLabel("");
         email.setBounds(xpos,ypos,width,height);
         email.setFont(font);
         add(email);
         ypos+=40;
 
-        faculty = new JLabel("2202014");
+        faculty = new JLabel("");
         faculty.setBounds(xpos,ypos,width,height);
         faculty.setFont(font);
         add(faculty);
         ypos+=40;
 
-        semister = new JLabel("2202014");
+        semister = new JLabel("");
         semister.setBounds(xpos,ypos,width,height);
         semister.setFont(font);
         add(semister);

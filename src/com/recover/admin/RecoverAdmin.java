@@ -1,4 +1,4 @@
-package com.recover;
+package com.recover.admin;
 
 import Main.Main;
 
@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 
 public class RecoverAdmin extends JFrame implements ActionListener {
 
-    //initialize variable
     private JTextField emailField,captchaField;
     private JPasswordField passwordField,confPass;
     private JButton recoverButton;

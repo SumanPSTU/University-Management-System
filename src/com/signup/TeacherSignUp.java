@@ -1,7 +1,7 @@
 package com.signup;
 
-
 import com.connection.ConnectionData;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -42,9 +42,22 @@ public class TeacherSignUp {
     private void insertTeacher() {
         ConnectionData connectionData = new ConnectionData();
         try {
-            String query = "INSERT INTO teacher_info (teacher_id, name, faculty, email, phone_no, date_of_birth, department, present_add, permanent_add, password,image) VALUES ('"+teacherID+"'," +
-                    "'"+teacherName+"', '"+faculty+"', '"+email+"', '"+mobileNo+"', '"+dateOfBirth+"', '"+department+"', '"+presentAdd+"', '"+permanentAdd+"','"+password+"','"+imagePath+"')";
-            connectionData.pst.executeUpdate(query);
+            Connection conn = connectionData.getConnection();
+            String query = "INSERT INTO teacher_info (teacher_id, name, faculty, email, phone_no, date_of_birth, department, present_add, permanent_add, password, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement pst = conn.prepareStatement(query);
+            pst.setInt(1, teacherID);
+            pst.setString(2, teacherName);
+            pst.setString(3, faculty);
+            pst.setString(4, email);
+            pst.setString(5, mobileNo);
+            pst.setString(6, dateOfBirth);
+            pst.setString(7, department);
+            pst.setString(8, presentAdd);
+            pst.setString(9, permanentAdd);
+            pst.setString(10, password);
+            pst.setString(11, imagePath);
+
+            pst.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

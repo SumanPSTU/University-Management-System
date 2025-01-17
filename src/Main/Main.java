@@ -1,8 +1,8 @@
 package Main;
 
 import com.connection.ConnectionData;
-import com.recover.RecoverAdmin;
-import com.recover.RecoverPass;
+import com.recover.admin.RecoverAdmin;
+import com.recover.admin.RecoverPass;
 import com.signin.AdminSignIn;
 
 import javax.swing.*;
@@ -167,7 +167,6 @@ public class Main extends JFrame implements ActionListener {
                         }else {
                             JOptionPane.showMessageDialog(null,"Invalid email or password");
                         }
-
                     }else {
                         JOptionPane.showMessageDialog(null, "Password must be at least 6 characters");
                     }

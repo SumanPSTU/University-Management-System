@@ -1,4 +1,4 @@
-package com.recover;
+package com.recover.admin;
 
 import com.connection.ConnectionData;
 

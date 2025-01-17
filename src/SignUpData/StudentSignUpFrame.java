@@ -217,12 +217,7 @@ public class StudentSignUpFrame extends JFrame {
         submitButton.setFont(new Font("Arial", Font.PLAIN, 22));
         rightPanel.add(submitButton);
 
-       /* // cancle button
-        cancle = new JButton("Back");
-        cancle.setBounds(420, yPosition+20, 110, 33);
-        cancle.setFont(new Font("Arial", Font.PLAIN, 22));
-        rightPanel.add(cancle);
-*/
+
         uploadButton = new JButton("Upload Image");
         uploadButton.setBounds(470, 310, 200, 40);
         uploadButton.setFont(new Font("Arial", Font.PLAIN, 22));
@@ -269,13 +264,7 @@ public class StudentSignUpFrame extends JFrame {
                 }
             }
         });
-        //add actionListener to the cancle button
-       /* cancle.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });*/
+
         // add actionListener to the button
         submitButton.addActionListener(new ActionListener() {
             @Override

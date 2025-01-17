@@ -12,7 +12,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-
 public class MainView extends JFrame implements ActionListener {
     JPanel rightPanel;
     JPanel leftPanel;
@@ -30,11 +29,104 @@ public class MainView extends JFrame implements ActionListener {
         // Use BorderLayout for the frame
         setLayout(new BorderLayout());
 
+        // create top panel
         topPanel = new JPanel();
-        topPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        topPanel.setBackground(Color.WHITE);
-        topPanel.setPreferredSize(new Dimension(1350, 50));
+        topPanel.setLayout(new FlowLayout(FlowLayout.CENTER,10,0));
+        topPanel.setBackground(new Color(168, 165, 165));
         add(topPanel, BorderLayout.NORTH);
+
+
+        // add menu bar with top panel
+        JMenuBar menuBar = new JMenuBar();
+        menuBar.setFont(new Font("Arial",Font.BOLD,20));
+
+        topPanel.add(menuBar);
+        // add some menu to menu bar
+        JMenu about = new JMenu("About");
+        JMenu academics = new JMenu("Academics");
+        JMenu admission = new JMenu("Admission");
+        JMenu student = new JMenu("Student");
+
+
+
+        //menu Item for menu
+        //menu item for about
+        JMenuItem history = new JMenuItem("History");
+        JMenuItem uOrdinance = new JMenuItem("University ordinance");
+        JMenuItem atAGlance = new JMenuItem("at a AGlance");
+        JMenuItem Chancellor = new JMenuItem("Chancellor");
+        JMenuItem viceChancellor = new JMenuItem("vice Chancellor");
+        JMenu others = new JMenu("Others");
+
+        //menu item for academics
+        JMenuItem academisProgram = new JMenuItem("academic program");
+        JMenu undergraduate = new JMenu("Undergraduate Studies");
+        JMenuItem postGraduate = new JMenuItem("Postgraduate Studies");
+        JMenuItem institutes = new JMenuItem("Institutes");
+        JMenuItem academicCalender = new JMenuItem("academic calender");
+        JMenuItem facilities = new JMenuItem("Facilities");
+
+
+
+        //menu item for admission
+        JMenuItem msMba = new JMenuItem("MS/MBA Admission");
+        JMenuItem phdAdmiCircular = new JMenuItem("Phd Admission Circular");
+        JMenuItem pmbaOrEMBA = new JMenuItem("PMBA/EMBA Admission Notice");
+        JMenuItem undAdmission = new JMenuItem("Under graduate Admission");
+
+
+        //add admission menu item
+        admission.add(msMba);
+        admission.add(phdAdmiCircular);
+        admission.add(pmbaOrEMBA);
+        admission.add(undAdmission);
+
+
+
+        // add menu item with academics
+        academics.add(academisProgram);
+        academics.add(undergraduate);
+        academics.add(postGraduate);
+        academics.add(institutes);
+        academics.add(academicCalender);
+        academics.add(facilities);
+
+        //menu item for undergraduate
+        JMenuItem faculties = new JMenuItem("Faculties");
+        JMenuItem departments = new JMenuItem("Departments");
+        undergraduate.add(faculties);
+        undergraduate.add(departments);
+
+        // add JmenuItem for others
+
+        JMenuItem proViceChancellor = new JMenuItem("Pro Vice Chancellor");
+        JMenuItem treasurer = new JMenuItem("Treasurer");
+        JMenuItem regentBoard = new JMenuItem("Regent Board");
+        JMenuItem academicCouncil = new JMenuItem("Academic Council");
+        JMenuItem administrativeOffices = new JMenuItem("Administrative Offices");
+
+        //add all other's item
+        others.add(proViceChancellor);
+        others.add(treasurer);
+        others.add(regentBoard);
+        others.add(academicCouncil);
+        others.add(administrativeOffices);
+
+        //add menuItem with about menu
+        about.add(history);
+        about.add(uOrdinance);
+        about.add(atAGlance);
+        about.add(Chancellor);
+        about.add(viceChancellor);
+        about.add(others);
+
+        //add menu to menuBar
+        menuBar.add(about);
+        menuBar.add(new JSeparator());
+        menuBar.add(academics);
+        menuBar.add(admission);
+        menuBar.add(student);
+
 
         // Create right panel
         rightPanel = new JPanel();
@@ -44,7 +136,7 @@ public class MainView extends JFrame implements ActionListener {
         // Create left panel
         leftPanel = new JPanel();
         leftPanel.setPreferredSize(new Dimension(250, 750));
-        leftPanel.setBackground(new Color(158, 163, 156));
+        leftPanel.setBackground(new Color(141, 173, 218));
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
         add(leftPanel, BorderLayout.WEST); // Place on the left
 
@@ -70,18 +162,26 @@ public class MainView extends JFrame implements ActionListener {
         teacherInfo.addActionListener(this);
         leftPanel.add(teacherInfo);
 
-        JButton visitPage = createButton("more info");
-        visitPage.addActionListener(this);
-        leftPanel.add(visitPage);
+
 
         JButton faculty = createButton("Faculty");
         faculty.addActionListener(this);
         leftPanel.add(faculty);
 
+        JButton notice = createButton("Notice");
+        notice.addActionListener(this);
+        leftPanel.add(notice);
+
+        JButton visitPage = createButton("more info");
+        visitPage.addActionListener(this);
+        leftPanel.add(visitPage);
+
 
         JButton logout = createButton("Logout");
         logout.addActionListener(this);
         leftPanel.add(logout);
+
+
 
         // Add vertical glue after the buttons to center them
         leftPanel.add(Box.createVerticalGlue());
@@ -97,8 +197,7 @@ public class MainView extends JFrame implements ActionListener {
             ImageIcon imageIcon = new ImageIcon(image);
             imagePanel.add(new JLabel(imageIcon));
         } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error loading image: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error loading image");
         }
 
         // Add the image panel to the right panel with a unique identifier
@@ -131,11 +230,11 @@ public class MainView extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         // action for home button
         if (e.getActionCommand().equals("Home")) {
-            cardLayout.show(rightPanel, "Blue");
+            cardLayout.show(rightPanel, "ImagePanel");
         }
 
         else if (e.getActionCommand().equals("Dash Board")) {
-            cardLayout.show(rightPanel, "green");
+            cardLayout.show(rightPanel, "Blue");
         }
 
         //action for logout button
