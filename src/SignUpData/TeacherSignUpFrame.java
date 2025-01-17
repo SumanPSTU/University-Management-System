@@ -374,7 +374,6 @@ public class TeacherSignUpFrame extends JFrame {
         return mobile.matches("^01\\d{9}$");
     }
 
-
     public static void main(String[] args) {
         new TeacherSignUpFrame();
     }
