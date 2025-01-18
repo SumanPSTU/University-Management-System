@@ -1,10 +1,17 @@
 package library.management;
 
+import com.connection.ConnectionData;
+import com.recover.admin.RecoverAdmin;
+import com.recover.admin.RecoverAdminPass;
 import com.signin.LibrarianSignIn;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,6 +19,7 @@ public class LibrarianSignInFrame extends JFrame {
     private JTextField emailField;
     private JPasswordField passwordField;
     private JButton signInButton;
+    JLabel clickHere;
 
     public LibrarianSignInFrame() {
         setTitle("Librarian Sign In");
@@ -64,6 +72,27 @@ public class LibrarianSignInFrame extends JFrame {
         signInButton.addActionListener(e -> {
             librarianSignIn();
         });
+        JLabel forgetPass = new JLabel("Forget password?");
+        forgetPass.setBounds(150,280,150,40);
+        forgetPass.setFont(new Font("Arial",Font.PLAIN,17));
+        forgetPass.setForeground(Color.BLACK);
+        add(forgetPass);
+
+        clickHere = new JLabel("<html><u>Click here</u></html>");
+        clickHere.setBounds(290,280,150,40);
+        clickHere.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        clickHere.setForeground(Color.BLUE);
+        clickHere.setFont(new Font("Arial",Font.PLAIN,17));
+
+        // add mouse listener to click here lable
+        clickHere.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                recoverPassword();
+            }
+        });
+        add(clickHere);
+
+
 
 
         // set a background image
@@ -75,6 +104,53 @@ public class LibrarianSignInFrame extends JFrame {
         add(backLabel);
 
         setVisible(true);
+    }
+    //dialog for recovery password
+    public void recoverPassword() {
+        JDialog dialog = new JDialog();
+        dialog.setTitle("Recover password");
+        dialog.setIconImage(new ImageIcon("icon/pass.png").getImage());
+        dialog.setSize(300,200);
+        dialog.setLocationRelativeTo(null);
+        dialog.setResizable(false);
+        dialog.setLayout(null);
+
+        JLabel email = new JLabel("Enter email");
+        email.setBounds(45,15,200,40);
+        email.setFont(new Font("Arial",Font.PLAIN,17));
+        dialog.add(email);
+
+        JTextField emailRec = new JTextField();
+        emailRec.setBounds(45,60,200,30);
+        emailRec.setFont(new Font("Arial",Font.PLAIN,17));
+        dialog.add(emailRec);
+
+        JButton recButton = new JButton("Check email");
+        recButton.setBounds(45,95,135,27);
+        recButton.setFont(new Font("Arial",Font.PLAIN,17));
+        dialog.add(recButton);
+        recButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String email = emailRec.getText();
+                if(!email.isEmpty()) {
+                    if(new ConnectionData().isValidEmail(email)) {
+                        if (new RecoverAdminPass(email).recover()) {
+                            new RecoverAdmin(email,new RecoverAdminPass().generateCaptcha());
+                            dialog.dispose();
+                        }else {
+                            JOptionPane.showMessageDialog(null,"Email does not exist");
+                        }
+                    }else {
+                        JOptionPane.showMessageDialog(null, "enter valid email address");
+                    }
+
+                }else {
+                    JOptionPane.showMessageDialog(null, "Please enter email");
+                }
+            }
+        });
+
+        dialog.setVisible(true);
     }
     private void librarianSignIn() {
         String email = emailField.getText();
@@ -107,6 +183,10 @@ public class LibrarianSignInFrame extends JFrame {
         Pattern pattern = Pattern.compile(EMAIL_REGEX);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
+    }
+
+    public static void main(String[] args) {
+        new LibrarianSignInFrame();
     }
 }
 

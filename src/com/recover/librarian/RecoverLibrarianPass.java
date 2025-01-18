@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class RecoverLibrarian extends JFrame implements ActionListener {
+public class RecoverLibrarianPass extends JFrame implements ActionListener {
 
     private JTextField emailField,captchaField;
     private JPasswordField passwordField,confPass;
@@ -17,7 +17,7 @@ public class RecoverLibrarian extends JFrame implements ActionListener {
     private String email,captchaCode;
 
 
-    public RecoverLibrarian(String email, String captchaCode) {
+    public RecoverLibrarianPass(String email, String captchaCode) {
 
         this.email = email;
         this.captchaCode = captchaCode;
@@ -145,7 +145,7 @@ public class RecoverLibrarian extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new RecoverLibrarian("email","captchaCode");
+        new RecoverLibrarianPass("email","captchaCode");
     }
 
 }
