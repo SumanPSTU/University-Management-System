@@ -186,9 +186,4 @@ public class LibrarianSignInFrame extends JFrame {
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
-
-    public static void main(String[] args) {
-        new LibrarianSignInFrame();
-    }
 }
-

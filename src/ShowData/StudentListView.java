@@ -23,7 +23,7 @@ public class StudentListView extends JFrame {
     public StudentListView() {
         setTitle("Student List");
         setSize(1200, 730);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon("icon/main_logo.png").getImage());
         setLayout(null);
@@ -91,7 +91,6 @@ public class StudentListView extends JFrame {
 
                 // Add a clickable text ("More Info") in the "More Info" column
                 row.add("More Info");
-
                 data.add(row);
             }
 
@@ -144,10 +143,8 @@ public class StudentListView extends JFrame {
             // Set the text of the cell to the value in the "More Info" column
             setText((value == null) ? "" : value.toString());
             setBackground(isSelected ? table.getSelectionBackground() : table.getBackground());
-
             // Change the cursor to hand when hovering over the text
             this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
             return this;
         }
     }
