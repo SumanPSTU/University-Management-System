@@ -2,6 +2,7 @@ package com.recover.librarian;
 
 import Main.Main;
 import com.recover.admin.SetRecoverAdminPass;
+import library.management.LibrarianSignInFrame;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -121,10 +122,10 @@ public class RecoverLibrarianPass extends JFrame implements ActionListener {
                     if (password.length()>=6 && confirmPassword.length()>=6) {
                         if (password.equals(confirmPassword)) {
                             if (checkCaptcha(captcha)) {
-                                SetRecoverAdminPass pass = new SetRecoverAdminPass(password,email);
+                                SetRecoverLibrarianPass pass = new SetRecoverLibrarianPass(password,email);
                                 if (pass.successfulUpdate()){
                                     JOptionPane.showMessageDialog(null,"Password recover successful");
-                                    new Main();
+                                    new LibrarianSignInFrame();
                                     dispose();
                                 }else{
                                     JOptionPane.showMessageDialog(null, "something wrong, please try again");

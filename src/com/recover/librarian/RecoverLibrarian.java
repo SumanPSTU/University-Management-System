@@ -7,23 +7,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class RecoverPass {
+public class RecoverLibrarian {
     private String email;
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final int PASSWORD_LENGTH = 6;
     private static final SecureRandom random = new SecureRandom();
 
 
-    public RecoverPass(String email) {
+    public RecoverLibrarian(String email) {
         this.email = email;
     }
-    public RecoverPass() {
+    public RecoverLibrarian() {
 
     }
     private boolean checkEmail(String email) {
         try {
             ConnectionData connection = new ConnectionData();
-            String query = "select * from university.admin where email = ?";
+            String query = "select * from university.librarian where email = ?";
             PreparedStatement statement = connection.getConnection().prepareStatement(query);
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();

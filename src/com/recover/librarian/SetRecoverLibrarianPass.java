@@ -15,7 +15,7 @@ public class SetRecoverLibrarianPass {
     private boolean resetPassword(){
         try {
             ConnectionData connection = new ConnectionData();
-            String query = "update university.admin set password = ? where email=?";
+            String query = "update university.librarian set password = ? where email=?";
             PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
             preparedStatement.setString(1, connection.hashPassword(recoverPass));
             preparedStatement.setString(2, email);

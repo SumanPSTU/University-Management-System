@@ -1,8 +1,8 @@
 package library.management;
 
 import com.connection.ConnectionData;
-import com.recover.admin.RecoverAdmin;
-import com.recover.admin.RecoverAdminPass;
+import com.recover.librarian.RecoverLibrarian;
+import com.recover.librarian.RecoverLibrarianPass;
 import com.signin.LibrarianSignIn;
 
 import javax.swing.*;
@@ -134,8 +134,10 @@ public class LibrarianSignInFrame extends JFrame {
                 String email = emailRec.getText();
                 if(!email.isEmpty()) {
                     if(new ConnectionData().isValidEmail(email)) {
-                        if (true) {
-                            // code for recover password
+                        if (new RecoverLibrarian(email).recover()) {
+
+                            // pass email and generated captcha
+                            new RecoverLibrarianPass(email,new RecoverLibrarian().generateCaptcha());
                             dialog.dispose();
                         }else {
                             JOptionPane.showMessageDialog(null,"Email does not exist");
