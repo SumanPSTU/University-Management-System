@@ -33,7 +33,7 @@ public class RecoverLibrarianPass extends JFrame implements ActionListener {
 
         //main prompt
         JLabel main = new JLabel("Recover Librarian password");
-        main.setSize(330,30);
+        main.setSize(350,30);
         main.setLocation(80,30);
         main.setFont(new Font("Arial",Font.BOLD,25));
         add(main);

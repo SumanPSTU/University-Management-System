@@ -134,8 +134,8 @@ public class LibrarianSignInFrame extends JFrame {
                 String email = emailRec.getText();
                 if(!email.isEmpty()) {
                     if(new ConnectionData().isValidEmail(email)) {
-                        if (new RecoverAdminPass(email).recover()) {
-                            new RecoverAdmin(email,new RecoverAdminPass().generateCaptcha());
+                        if (true) {
+                            // code for recover password
                             dialog.dispose();
                         }else {
                             JOptionPane.showMessageDialog(null,"Email does not exist");

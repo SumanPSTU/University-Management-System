@@ -5,10 +5,10 @@ import com.connection.ConnectionData;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class SetRecoverPass {
+public class SetRecoverLibrarianPass {
     private String recoverPass;
     private String email;
-    public SetRecoverPass(String recoverPass, String email){
+    public SetRecoverLibrarianPass(String recoverPass, String email){
         this.recoverPass = recoverPass;
         this.email = email;
     }
