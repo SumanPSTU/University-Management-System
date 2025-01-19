@@ -204,8 +204,8 @@ public class MainView extends JFrame implements ActionListener {
         rightPanel.add(imagePanel, "ImagePanel");
         JPanel panel2 = new JPanel();
         panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
-        panel2.setBackground(new Color(84, 94, 200));
-        rightPanel.add(panel2,"Blue");
+        panel2.setBackground(new Color(107, 236, 73));
+        rightPanel.add(panel2,"dashBoard");
 
 
         setVisible(true);

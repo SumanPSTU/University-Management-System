@@ -88,7 +88,7 @@ public class StudentListView extends JFrame {
                 row.add(resultSet.getString("semister"));
                 row.add(resultSet.getString("email"));
                 row.add(resultSet.getString("mobile_no"));
-
+                
                 // Add a clickable text ("More Info") in the "More Info" column
                 row.add("More Info");
                 data.add(row);
