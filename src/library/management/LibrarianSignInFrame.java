@@ -25,7 +25,7 @@ public class LibrarianSignInFrame extends JFrame {
         setTitle("Librarian Sign In");
         setSize(500,400);
         setIconImage(new ImageIcon("icon/stackofbooks.png").getImage());
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setLayout(null);
         setLocationRelativeTo(null);
         setResizable(false);

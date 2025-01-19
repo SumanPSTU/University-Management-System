@@ -1,7 +1,7 @@
 package Main;
 
 import ShowData.TeacherListView;
-
+import library.management.LibrarianSignInFrame;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -176,6 +176,11 @@ public class MainView extends JFrame implements ActionListener {
         visitPage.addActionListener(this);
         leftPanel.add(visitPage);
 
+        // button for librarian login
+        JButton librarian = createButton("Library");
+        librarian.addActionListener(this);
+        leftPanel.add(librarian);
+
 
         JButton logout = createButton("Logout");
         logout.addActionListener(this);
@@ -211,7 +216,7 @@ public class MainView extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    private JButton createButton(String text) {
+    public JButton createButton(String text) {
         JButton button = new JButton(text);
         button.setFont(new Font("Arial", Font.PLAIN, 18));
         button.setMaximumSize(new Dimension(150, 35));
@@ -234,7 +239,9 @@ public class MainView extends JFrame implements ActionListener {
         }
 
         else if (e.getActionCommand().equals("Dash Board")) {
-            cardLayout.show(rightPanel, "Blue");
+            cardLayout.show(rightPanel, "dashBoard");
+        }else if (e.getActionCommand().equals("Library")) {
+            new LibrarianSignInFrame();
         }
 
         //action for logout button
