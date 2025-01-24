@@ -1,44 +1,41 @@
 package library.management;
 
+
 import javax.swing.*;
-import java.awt.*;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
-public class AddBook extends JFrame {
-    public AddBook() {
-        setTitle("Add Book");
-        setSize(700, 500);
-        setLocationRelativeTo(null);
-        setLayout(null);
-        setIconImage(new ImageIcon("icon/stackofbooks.png").getImage());
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        add(getJlable("Lable",0,40,100,30));
+public class AddBook {
+    private String title;
+    private String author;
+    private int year;
+    private int isbn;
+    private int numOfCopies;
+    public AddBook(String title, String author, int year, int isbn, int numOfCopies) {
+        this.title = title;
+        this.author = author;
+        this.year = year;
+        this.isbn = isbn;
+        this.numOfCopies = numOfCopies;
+        setData();
 
-
-
-        // set a background image
-        ImageIcon icon = new ImageIcon("icon/book.jpg");
-        Image image = icon.getImage().getScaledInstance(700, 500, Image.SCALE_SMOOTH);
-        ImageIcon icon1 = new ImageIcon(image);
-        JLabel backLabel = new JLabel(icon1);
-        backLabel.setBounds(0, 0, 700, 500);
-        add(backLabel);
-
-        setVisible(true);
     }
-    public static JLabel getJlable(String title,int x,int y,int width,int height) {
-        JLabel label = new JLabel(title);
-        label.setBounds(x, y, width, height);
-        label.setFont(new Font("Arial", Font.BOLD, 18));
-        return label;
-    }
-    public static JTextField getJTextField(String title,int x,int y,int width,int height){
-        JTextField textField = new JTextField(title);
-        textField.setBounds(x, y, width, height);
-        textField.setFont(new Font("Aria" +
-                "l", Font.BOLD, 18));
-        return textField;
-    }
-    public static void main(String[] args) {
-        new AddBook();
+    public void setData() {
+
+        String query = "INSERT INTO books VALUES (?,?, ?,?,?)";
+
+        try {
+            LibraryConn conn = new LibraryConn();
+            PreparedStatement preparedStatement = conn.con.prepareStatement(query);
+            preparedStatement.setInt(1, isbn);
+            preparedStatement.setString(2, title);
+            preparedStatement.setInt(3, numOfCopies);
+            preparedStatement.setString(4, author);
+            preparedStatement.setInt(5, year);
+            preparedStatement.executeUpdate();
+
+        }catch (SQLException e){
+            JOptionPane.showMessageDialog(null, "Error inserting data");
+        }
     }
 }
