@@ -1,6 +1,9 @@
 package Main;
 
+import ShowData.StudentListView;
 import ShowData.TeacherListView;
+import SignUpData.StudentSignUpFrame;
+import SignUpData.TeacherSignUpFrame;
 import library.management.LibrarianSignInFrame;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -150,21 +153,32 @@ public class MainView extends JFrame implements ActionListener {
         home.addActionListener(this);
         leftPanel.add(home);
 
-        JButton dashBoard = createButton("Dash Board");
+        JButton dashBoard = createButton("Add Student");
         dashBoard.addActionListener(this);
         leftPanel.add(dashBoard);
 
-        JButton search = createButton("Search");
-        search.addActionListener(this);
-        leftPanel.add(search);
+
+        JButton showTeacher = createButton("Show Teacher");
+        showTeacher.addActionListener(this);
+        leftPanel.add(showTeacher);
+
+        JButton showStudent = createButton("Show Student");
+        showStudent.addActionListener(this);
+        leftPanel.add(showStudent);
 
         JButton teacherInfo = createButton("Teacher info");
         teacherInfo.addActionListener(this);
         leftPanel.add(teacherInfo);
 
+        JButton search = createButton("Search");
+        search.addActionListener(this);
+        leftPanel.add(search);
 
 
-        JButton faculty = createButton("Faculty");
+
+
+
+        JButton faculty = createButton("Add Teacher");
         faculty.addActionListener(this);
         leftPanel.add(faculty);
 
@@ -233,11 +247,17 @@ public class MainView extends JFrame implements ActionListener {
     // add action listener for all button
     @Override
     public void actionPerformed(ActionEvent e) {
-        // action for home button
         if (e.getActionCommand().equals("Home")) {
             cardLayout.show(rightPanel, "ImagePanel");
+        }else if (e.getActionCommand().equals("Add Student")) {
+            new StudentSignUpFrame();
+        }else if (e.getActionCommand().equals("Show Teacher")) {
+            new TeacherListView();
+        }else if (e.getActionCommand().equals("Show Student")) {
+            new StudentListView();
+        }else if (e.getActionCommand().equals("Add Teacher")) {
+            new TeacherSignUpFrame();
         }
-
         else if (e.getActionCommand().equals("Dash Board")) {
             cardLayout.show(rightPanel, "dashBoard");
         }else if (e.getActionCommand().equals("Library")) {

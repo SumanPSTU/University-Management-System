@@ -23,7 +23,7 @@ public class StudentListView extends JFrame {
     public StudentListView() {
         setTitle("Student List");
         setSize(1200, 730);
-        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon("icon/main_logo.png").getImage());
         setLayout(null);

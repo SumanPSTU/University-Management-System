@@ -21,8 +21,9 @@ public class LibrarianSignIn {
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, connection.hashPassword(password));
             ResultSet resultSet = preparedStatement.executeQuery();
-            connection.close();
+
             if (resultSet.next()) {
+                connection.close();
                 return true;
             }
         }catch (Exception e) {

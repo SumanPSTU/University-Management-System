@@ -24,7 +24,7 @@ public class Main extends JFrame implements ActionListener {
         setTitle("Admin sign in");
         setSize(500,350);
         setIconImage(new ImageIcon("icon/user.png").getImage());
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
         setLayout(null);

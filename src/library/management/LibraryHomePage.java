@@ -12,9 +12,6 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Vector;
 
-import Main.MainView;
-import com.connection.ConnectionData;
-
 public class LibraryHomePage extends JFrame implements ActionListener {
     private JPanel leftPanel;
     private JPanel cardPanel;
@@ -23,7 +20,7 @@ public class LibraryHomePage extends JFrame implements ActionListener {
     private JPanel dashboardPanel;
     private Font font;
     private JTable table;
-    private JDialog dialog;
+    private JDialog dialog,dialog1;
 
     private JButton insertButton,updateButton;
 
@@ -66,11 +63,10 @@ public class LibraryHomePage extends JFrame implements ActionListener {
         JButton updateBooksButton = new JButton("Update Books");
         updateBooksButton.setBounds(30, 350, 140, 30);
 
-        JButton browseBooksButton = new JButton("Browse Books");
-        browseBooksButton.setBounds(30, 390, 140, 30);
+
 
         JButton logoutButton = new JButton("Logout");
-        logoutButton.setBounds(30, 430, 140, 30);
+        logoutButton.setBounds(30, 390, 140, 30);
 
         // Add all components to leftPanel
         leftPanel.add(homeButton);
@@ -79,7 +75,6 @@ public class LibraryHomePage extends JFrame implements ActionListener {
         leftPanel.add(addBooksButton);
         leftPanel.add(deleteBooksButton);
         leftPanel.add(updateBooksButton);
-        leftPanel.add(browseBooksButton);
         leftPanel.add(logoutButton);
 
         // Background image for the left panel
@@ -172,19 +167,41 @@ public class LibraryHomePage extends JFrame implements ActionListener {
         insertButton.setBounds(250, 450, 150, 35);
         addBookPanel.add(insertButton);
 
-
-
         // component for update panel
 
         updatePanel = new JPanel();
         updatePanel.setBackground(new Color(182, 181, 182));
         updatePanel.setLayout(null);
 
-        updatePanel.add(isbnLabel);
-        updatePanel.add(titleLabel);
-        updatePanel.add(copyLabel);
-        updatePanel.add(authorLabel);
-        updatePanel.add(publishYearLabel);
+        JLabel addBookLabel1 = new JLabel("Update Books");
+        addBookLabel1.setFont(new Font("Arial", Font.BOLD, 32));
+        addBookLabel1.setBounds(240, 50, 400, 40);
+        updatePanel.add(addBookLabel1);
+
+        JLabel isbnLabel1 = new JLabel("ISBN Number:");
+        isbnLabel1.setFont(font);
+        isbnLabel1.setBounds(100, 150, 170, 30);
+        updatePanel.add(isbnLabel1);
+
+        JLabel titleLabel1 = new JLabel("Book Title:");
+        titleLabel1.setFont(font);
+        titleLabel1.setBounds(100, 210, 170, 30);
+        updatePanel.add(titleLabel1);
+
+        JLabel copyLabel1 = new JLabel("Number of Copies:");
+        copyLabel1.setFont(font);
+        copyLabel1.setBounds(100, 270, 170, 30);
+        updatePanel.add(copyLabel1);
+
+        JLabel authorLabel1 = new JLabel("Author Name:");
+        authorLabel1.setFont(font);
+        authorLabel1.setBounds(100, 330, 170, 30);
+        updatePanel.add(authorLabel1);
+
+        JLabel publishYearLabel1 = new JLabel("Publish Year:");
+        publishYearLabel1.setFont(font);
+        publishYearLabel1.setBounds(100, 390, 170, 30);
+        updatePanel.add(publishYearLabel1);
 
 
         isbnField1 = new JTextField();
@@ -219,6 +236,44 @@ public class LibraryHomePage extends JFrame implements ActionListener {
         updateButton.setFont(font);
         updateButton.setBounds(250, 470, 150, 35);
         updatePanel.add(updateButton);
+        updateButton.addActionListener(e -> {
+            try {
+                String title = titleField1.getText().trim();
+                String author = authorField1.getText().trim();
+                int isbn = Integer.parseInt(isbnField1.getText().trim());
+                int year = Integer.parseInt(publishYearField1.getText().trim());
+                int copies = Integer.parseInt(copyField1.getText().trim());
+
+                // check field validity for update data
+
+
+                if (!title.isEmpty() && !author.isEmpty() && (copies > 0) && year > 0 ) {
+                    if (new LibraryConn().ifIsbnExist(isbn)) {
+                        if (new UpdateBook(title,author,year,isbn,copies).updateBook()){
+                            JOptionPane.showMessageDialog(null, "Book updated successfully");
+                            int option = JOptionPane.showConfirmDialog(null,"Do you want to update more?");
+                            if (option == JOptionPane.YES_OPTION) {
+                                openDialog();
+
+                            }else {
+                                setfieldNull();
+                                retrieveDataFromDatabase();
+                                mainCardLayout.show(cardPanel, "All Books");
+                            }
+                        }
+                    }else {
+                        JOptionPane.showMessageDialog(rootPane, "Please provide liggle ISBN number");
+                    }
+
+                }else {
+                    JOptionPane.showMessageDialog(null,"Please fill all the field");
+                }
+
+
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Something went wrong!");
+            }
+        });
 
         // update component panel
         insertButton.addActionListener(e -> {
@@ -264,10 +319,6 @@ public class LibraryHomePage extends JFrame implements ActionListener {
 
         // add update panel
 
-
-
-
-
         cardPanel.add(homePanel, "Home");
         cardPanel.add(dashboardPanel, "Dashboard");
         cardPanel.add(addBookPanel, "Add Books");
@@ -281,7 +332,7 @@ public class LibraryHomePage extends JFrame implements ActionListener {
         homeButton.addActionListener(this);
         dashboardButton.addActionListener(this);
         allBooksButton.addActionListener(this);
-        browseBooksButton.addActionListener(this);
+        deleteBooksButton.addActionListener(this);
         addBooksButton.addActionListener(this);
         updateBooksButton.addActionListener(this);
         logoutButton.addActionListener(this);
@@ -310,14 +361,14 @@ public class LibraryHomePage extends JFrame implements ActionListener {
             case "Add Books":
                 mainCardLayout.show(cardPanel, "Add Books");
                 break;
+            case "Delete Books":
+                    deleteBook();
+                break;
 
             case "Update Books":
-                    mainCardLayout.show(cardPanel, "update panels");
                     openDialog();
-
                     break;
             case "Logout":
-                new MainView();
                 dispose();
                 break;
         }
@@ -343,7 +394,6 @@ public class LibraryHomePage extends JFrame implements ActionListener {
                 row.add(resultSet.getInt("publishyear"));
                 data.add(row);
             }
-
             // Create the DefaultTableModel with the fetched data
             DefaultTableModel model = new DefaultTableModel(data, new Vector<>(Arrays.asList(columns)));
             table.setModel(model);
@@ -364,9 +414,19 @@ public class LibraryHomePage extends JFrame implements ActionListener {
         copyField.setText("");
         publishYearField.setText("");
     }
+    public void setfieldNull(){
+        isbnField1.setText("");
+        titleField1.setText("");
+        authorField1.setText("");
+        copyField1.setText("");
+        publishYearField1.setText("");
+    }
+
+    // open dialog for update book list
     public void openDialog(){
         dialog = new JDialog();
         dialog.setTitle("Update Books");
+        dialog.setDefaultCloseOperation(HIDE_ON_CLOSE);
         dialog.setIconImage(new ImageIcon("icon/stackofbooks.png").getImage());
         dialog.setSize(300,200);
         dialog.setModal(true);
@@ -400,6 +460,7 @@ public class LibraryHomePage extends JFrame implements ActionListener {
                         // call method for setData to the update field
 
                         setDataToUpdatepanel(isbn);
+                        mainCardLayout.show(cardPanel, "update panels");
                         dialog.setVisible(false);
                     }else {
                         JOptionPane.showMessageDialog(null,"ISBN not found");
@@ -430,12 +491,76 @@ public class LibraryHomePage extends JFrame implements ActionListener {
                 copyField1.setText(String.valueOf(resultSet.getInt("numofcopy")));
                 authorField1.setText(resultSet.getString("author"));
                 publishYearField1.setText(String.valueOf(resultSet.getInt("publishyear")));
-
             }
         }catch (SQLException exception){
             exception.printStackTrace();
 
         }
+    }
+    public void deleteBook() {
+        dialog1 = new JDialog();
+        dialog1.setTitle("Delete Books");
+        dialog1.setIconImage(new ImageIcon("icon/stackofbooks.png").getImage());
+        dialog1.setSize(300,200);
+        dialog1.setModal(true);
+        dialog1.setLocationRelativeTo(null);
+        dialog1.getContentPane().setBackground(new Color(204, 202, 204));
+        dialog1.setLayout(null);
+
+        JLabel label = new JLabel("Enter ISBN Number");
+        label.setBounds(40, 30, 200, 30);
+        label.setFont(font);
+        dialog1.add(label);
+
+        JTextField isbnField = new JTextField();
+        isbnField.setBounds(40,60,200,30);
+        isbnField.setFont(font);
+        dialog1.add(isbnField);
+
+        JButton button = new JButton("Check");
+        button.setBounds(90,100,100,30);
+        button.setFont(font);
+        dialog1.add(button);
+
+        button.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int isbn = Integer.parseInt(isbnField.getText());
+                if (ifInt(String.valueOf(isbn))) {
+                    if (new LibraryConn().ifIsbnExist(isbn)) {
+
+                        // call method for setData to the update field
+                       int option = JOptionPane.showConfirmDialog(null,"Are you sure?");
+                       if (option == JOptionPane.YES_OPTION) {
+                           if (new DeleteBook(isbn).deleteData()){
+                               JOptionPane.showMessageDialog(null,"Delete Successful");
+                               int op = JOptionPane.showConfirmDialog(null,"Do you want to delete more?");
+
+                               if (op == JOptionPane.YES_OPTION) {
+                                   deleteBook();
+                               }else {
+                                   dialog1.setVisible(false);
+                                   mainCardLayout.show(cardPanel,"Home");
+                                   retrieveDataFromDatabase();
+                                   mainCardLayout.show(cardPanel, "All Books");
+                               }
+                           }else {
+                               dialog1.setVisible(false);
+                               retrieveDataFromDatabase();
+                               mainCardLayout.show(cardPanel,"All Books");
+                           }
+                       }
+                    }else {
+                        JOptionPane.showMessageDialog(null,"ISBN not found");
+                    }
+                }else {
+                    JOptionPane.showMessageDialog(null,"ISBN must be Integer");
+                }
+
+            }
+        });
+        dialog1.setVisible(true);
     }
 
 }

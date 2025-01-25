@@ -165,7 +165,8 @@ public class LibrarianSignInFrame extends JFrame {
                     // pass data to the sign in class
                     LibrarianSignIn signIn = new LibrarianSignIn(email,password);
                     if (signIn.signIn()){
-
+                        this.dispose();
+                        new LibraryHomePage();
                     }else {
                         JOptionPane.showMessageDialog(null, "Invalid Email Or Password");
                     }
