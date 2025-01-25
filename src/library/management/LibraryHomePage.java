@@ -339,11 +339,6 @@ public class LibraryHomePage extends JFrame implements ActionListener {
 
         setVisible(true);
     }
-
-    public static void main(String[] args) {
-        new LibraryHomePage();
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();

@@ -21,7 +21,7 @@ public class StudentDataShow extends JFrame {
         setSize(1000,750);
         setLocationRelativeTo(null);
         setResizable(false);
-        setDefaultCloseOperation(StudentDataShow.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
         getContentPane().setBackground(new Color(178, 178, 218));
         setLayout(null);
 
@@ -225,8 +225,5 @@ public class StudentDataShow extends JFrame {
             ex.printStackTrace();
         }
 
-    }
-    public static void main(String[] args){
-        new StudentDataShow(2202046);
     }
 }

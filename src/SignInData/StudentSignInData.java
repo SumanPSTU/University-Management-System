@@ -22,7 +22,7 @@ public class StudentSignInData extends JFrame {
     public StudentSignInData() {
         setTitle("Student sign In");
         setIconImage(new ImageIcon("icon/main_logo.png").getImage());
-        setDefaultCloseOperation(StudentSignInData.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
         setSize(800, 600);
         setLocationRelativeTo(null);
         setLayout(null);
@@ -147,8 +147,5 @@ public class StudentSignInData extends JFrame {
     }
     public boolean isInt(String input) {
         return input.matches("[0-9]+");
-    }
-    public static void main(String[] args) {
-        new StudentSignInData();
     }
 }

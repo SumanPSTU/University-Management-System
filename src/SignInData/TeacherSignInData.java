@@ -23,7 +23,7 @@ public class TeacherSignInData extends JFrame {
     public TeacherSignInData() {
         setTitle("Teacher sign In");
         setIconImage(new ImageIcon("icon/main_logo.png").getImage());
-        setDefaultCloseOperation(StudentSignInData.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(800, 600);
         setLocationRelativeTo(null);
         setLayout(null);
@@ -147,8 +147,5 @@ public class TeacherSignInData extends JFrame {
     }
     private static boolean isInt(Integer id){
         return (id instanceof Integer)?true:false;
-    }
-    public static void main(String[] args) {
-        new TeacherSignInData();
     }
 }

@@ -205,7 +205,4 @@ public class TeacherDataShow extends JFrame {
         }
 
     }
-    public static void main(String[] args){
-        new TeacherDataShow(2);
-    }
 }

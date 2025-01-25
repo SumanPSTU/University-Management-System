@@ -4,6 +4,7 @@ import ShowData.StudentListView;
 import ShowData.TeacherListView;
 import SignUpData.StudentSignUpFrame;
 import SignUpData.TeacherSignUpFrame;
+import attendenceSystem.SmartAttendance;
 import library.management.LibrarianSignInFrame;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -157,6 +158,9 @@ public class MainView extends JFrame implements ActionListener {
         dashBoard.addActionListener(this);
         leftPanel.add(dashBoard);
 
+        JButton faculty = createButton("Add Teacher");
+        faculty.addActionListener(this);
+        leftPanel.add(faculty);
 
         JButton showTeacher = createButton("Show Teacher");
         showTeacher.addActionListener(this);
@@ -170,17 +174,21 @@ public class MainView extends JFrame implements ActionListener {
         teacherInfo.addActionListener(this);
         leftPanel.add(teacherInfo);
 
+        JButton smart = createButton("Attendance");
+        smart.addActionListener(this);
+        leftPanel.add(smart);
+
+        JButton facultyButton = createButton("Faculty");
+        facultyButton.addActionListener(this);
+        leftPanel.add(facultyButton);
+
+
         JButton search = createButton("Search");
         search.addActionListener(this);
         leftPanel.add(search);
 
 
 
-
-
-        JButton faculty = createButton("Add Teacher");
-        faculty.addActionListener(this);
-        leftPanel.add(faculty);
 
         JButton notice = createButton("Notice");
         notice.addActionListener(this);
@@ -190,7 +198,6 @@ public class MainView extends JFrame implements ActionListener {
         visitPage.addActionListener(this);
         leftPanel.add(visitPage);
 
-        // button for librarian login
         JButton librarian = createButton("Library");
         librarian.addActionListener(this);
         leftPanel.add(librarian);
@@ -202,10 +209,8 @@ public class MainView extends JFrame implements ActionListener {
 
 
 
-        // Add vertical glue after the buttons to center them
-        leftPanel.add(Box.createVerticalGlue());
 
-        //add everything in right panel
+        leftPanel.add(Box.createVerticalGlue());
         cardLayout = new CardLayout();
         rightPanel.setLayout(cardLayout);
         JPanel imagePanel = new JPanel();
@@ -262,6 +267,16 @@ public class MainView extends JFrame implements ActionListener {
             cardLayout.show(rightPanel, "dashBoard");
         }else if (e.getActionCommand().equals("Library")) {
             new LibrarianSignInFrame();
+        }else if (e.getActionCommand().equals("Attendance")) {
+            new SmartAttendance();
+        } else if (e.getActionCommand().equals("Notice")) {
+            try {
+                Desktop.getDesktop().browse(new URI("https://www.pstu.ac.bd/notices"));
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (URISyntaxException ex) {
+                throw new RuntimeException(ex);
+            }
         }
 
         //action for logout button
@@ -307,5 +322,8 @@ public class MainView extends JFrame implements ActionListener {
                 throw new RuntimeException(ex);
             }
         }
+    }
+    public void createAttendance() {
+
     }
 }

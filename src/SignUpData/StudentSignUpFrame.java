@@ -41,7 +41,7 @@ public class StudentSignUpFrame extends JFrame {
         setTitle("Student Sign Up Form");
         setSize(1000, 750);
         setIconImage(new ImageIcon("icon/main_logo.png").getImage());
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
         setLayout(null);
@@ -479,7 +479,4 @@ public class StudentSignUpFrame extends JFrame {
     }
 
 
-    public static void main(String[] args){
-        new StudentSignUpFrame();
-    }
 }

@@ -148,7 +148,4 @@ public class StudentListView extends JFrame {
             return this;
         }
     }
-    public static void main(String[] args) {
-        new StudentListView();
-    }
 }

@@ -38,7 +38,7 @@ public class SmartAttendance extends JFrame {
 
     public SmartAttendance() {
         setTitle("Smart Attendance System");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
         setSize(1100, 700);
         setLayout(null);
         setIconImage(new ImageIcon("icon/main_logo.png").getImage());

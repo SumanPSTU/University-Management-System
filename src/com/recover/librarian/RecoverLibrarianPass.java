@@ -145,8 +145,4 @@ public class RecoverLibrarianPass extends JFrame implements ActionListener {
         }
     }
 
-    public static void main(String[] args) {
-        new RecoverLibrarianPass("email","captchaCode");
-    }
-
 }

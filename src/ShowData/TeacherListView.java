@@ -152,7 +152,4 @@ public class TeacherListView extends JFrame {
             return this;
         }
     }
-    public static void main(String[] args) {
-        new TeacherListView();
-    }
 }

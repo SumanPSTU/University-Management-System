@@ -41,7 +41,7 @@ public class TeacherSignUpFrame extends JFrame {
         setTitle("Teacher Sign Up Form");
         setSize(1000, 750);
         setIconImage(new ImageIcon("icon/main_logo.png").getImage());
-        setDefaultCloseOperation(TeacherSignUpFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
         setLayout(null);
@@ -372,9 +372,5 @@ public class TeacherSignUpFrame extends JFrame {
     }
     public boolean isValidMobile(String mobile) {
         return mobile.matches("^01\\d{9}$");
-    }
-
-    public static void main(String[] args) {
-        new TeacherSignUpFrame();
     }
 }
